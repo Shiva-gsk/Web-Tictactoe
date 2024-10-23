@@ -1,0 +1,29 @@
+version: '3'
+services:
+  # Backend service (FastAPI)
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    networks:
+      - app-network
+
+  # Frontend service (React)
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:80" # React app on port 3000
+    networks:
+      - app-network
+
+# Define a network for communication between services
+networks:
+  app-network:
+    driver: bridge
+
